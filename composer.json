@@ -1,0 +1,16 @@
+{
+    "name": "lenovo/stmikjabar",
+    "description": "sistem kepegawaian stmik jabar",
+    "type": "project",
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Dian Hasna Ramadhani"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.29",
+        "tecnickcom/tcpdf": "^6.6"
+    }
+}
