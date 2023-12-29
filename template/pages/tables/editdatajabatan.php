@@ -8,6 +8,13 @@
     }
 
  ?>
+ <?php 
+                    include '../../koneksi.php';
+                    $id = $_GET['id_jabatan'];
+                    $sql =  "SELECT * FROM tb_jabatan WHERE id_jabatan = '$id'";
+                    $data = mysqli_query($koneksi, $sql);
+                    $d = mysqli_fetch_array($data);
+                   ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +22,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>DATA JABATAN | STMIK JABAR</title>
+  <title>Tambah Data | STMIK JABAR</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
@@ -30,9 +37,7 @@
 </head>
 
 <body>
-  <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../../images/logo2.png" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo2.png" alt="logo"/></a>
@@ -47,8 +52,8 @@
               <img src="../../images/STMIK_JABAR-removebg-preview.jpeg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-power-off text-primary" href="../../logout.php"></i>
+              <a class="dropdown-item" href="../../logout.php">
+                <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
             </div>
@@ -76,8 +81,8 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="datapegawai.php">Data Pegawai</a></li>
-                <li class="nav-item"> <a class="nav-link" href="datajabatan.php">Data Jabatan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../tables/datapegawai.php">Data Pegawai</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../tables/datajabatan.php">Data Jabatan</a></li>
               </ul>
             </div>
           </li>
@@ -103,56 +108,30 @@
         </ul>
       </nav>
       <!-- partial -->
-      <div class="main-panel">
+      <div class="main-panel">        
         <div class="content-wrapper">
           <div class="row">
-           <div class="col-lg-12 grid-margin stretch-card">
+            <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Data Jabatan</h4>
+                  <h4 class="card-title">Tambah Data</h4>
                   <p class="card-description">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <!-- Tombol "Tambah Data" di sebelah kiri -->
-                        <a class="btn btn-success" href="../forms/tambahjabatan.php">Tambah Data</a>
-                      </div>
-                    </div>
+                    Form Data Jabatan
                   </p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>No</th>
-                          <th>Nama Jabatan</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <?php 
-                        include '../../koneksi.php';
-                        $sql = "SELECT * FROM tb_jabatan";
-                        $query = mysqli_query($koneksi, $sql);
-
-                        $no = 1;
-                        while ($row = mysqli_fetch_array($query)) {
-                      ?>
-                      <tbody>
-                        <tr>
-                          <td><?php echo $no ?></td>
-                          <td><?php echo $row['jabatan']; ?></td>
-                          <td><a href="editdatajabatan.php?id_jabatan=<?php echo $row['id_jabatan']; ?>"><button class="btn btn-primary btn-sm">Ubah</button></a></td>
-                          <td><a href="hapusjabatan.php?id_jabatan=<?php echo $row['id_jabatan']; ?>"><button class="btn btn-danger" onclick="return confirm('yakin ingin dihapus?');">Hapus</button></a></td>
-                        </tr>
-                        <?php 
-                            $no++;
-                          }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
+                  <form class="forms-sample" action="proseseditjabatan.php" method="post">
+                    <div class="form-group">
+                      <label for="exampleInputName1">Id Jabatan</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="id_jabatan" value="<?php echo $d['id_jabatan'];?>" readonly>
+                      <label for="exampleInputName1">Nama Jabatan</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="jabatan" value="<?php echo $d['jabatan'];?>">
+                    </div>
+                    <button type="submit" name="simpan" class="btn btn-primary mr-2">Submit</button>
+                    <a type="reset" href="../tables/datajabatan.php" name="" value="Batal" class="btn btn-light">Cancel</a>
+                  </form>
                 </div>
               </div>
             </div>
-          </div>
+            </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
@@ -172,6 +151,8 @@
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
+  <script src="../../vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <script src="../../vendors/select2/select2.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- inject:js -->
   <script src="../../js/off-canvas.js"></script>
@@ -181,6 +162,9 @@
   <script src="../../js/todolist.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="../../js/file-upload.js"></script>
+  <script src="../../js/typeahead.js"></script>
+  <script src="../../js/select2.js"></script>
   <!-- End custom js for this page-->
 </body>
 

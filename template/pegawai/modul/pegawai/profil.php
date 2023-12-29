@@ -2,13 +2,13 @@
 error_reporting(0);
 
  ?>
-  <?php 
+ <?php 
     session_start();
     require_once("koneksi.php");
     if (!isset($_SESSION['nip'])) {
-        header("location: ../../login.php");
+        header("location: index.php");
     }else {
-        $nip = $_SESSION['nip'];  
+        $username = $_SESSION['nip'];  
     }
 
  ?>
@@ -35,7 +35,7 @@ error_reporting(0);
 <?php date_default_timezone_set('Asia/Jakarta'); ?>
 <body>
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="../../../images/logo2.png" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../../images/logo2.png" alt="logo"/></a>
       </div>
@@ -44,18 +44,22 @@ error_reporting(0);
           <span class="icon-menu"></span>
         </button>
         <ul class="navbar-nav navbar-nav-right">
-          <?php
-            $nip = $_SESSION['nip'];
-            include '../../koneksi.php';
-            $sql = "SELECT * FROM tb_pegawai WHERE nip = '$nip'";
-            $query = mysqli_query($koneksi, $sql);
-            $r = mysqli_fetch_array($query);
-          ?>
+         <?php
+             $nip = $_SESSION['nip'];
+             include '../../koneksi.php';
+             $sql = "SELECT * FROM tb_pegawai WHERE nip = '$nip'";
+             $query = mysqli_query($koneksi, $sql);
+             $r = mysqli_fetch_array($query);
+         ?>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="../../../pages/forms/images/<?php echo $r['foto'];?>" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="modul/pegawai/profil.php">
+                <i class="ti-settings text-primary"></i>
+                Profile
+              </a>
               <a class="dropdown-item" href="../../logout.php">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -63,7 +67,7 @@ error_reporting(0);
             </div>
           </li>
           </ul>
-         </div>
+        </div>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
@@ -77,102 +81,73 @@ error_reporting(0);
               <span class="menu-title text-white">Dashboard</span>
             </a>
           </li>
-          </ul>
+        </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">        
         <div class="content-wrapper">
           <div class="row">
-           <div class="col-12 grid-margin stretch-card">
+            <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Edit Profil</h4>
+                  <h4 class="card-title">Profil</h4>
                   <p class="card-description">
-                    Form Edit Profil
+                    Profil
                   </p>
-                  <form class="forms-sample" action="update.php" enctype="multipart/form-data" method="POST">
+                  <form class="forms-sample" enctype="multipart/form-data" method="POST">
                     <?php
-                                  $nip = $_SESSION['nip'];
-                                  include '../../koneksi.php';
-                                  $sql = "SELECT * FROM tb_pegawai WHERE nip = '$nip'";
-                                  $query = mysqli_query($koneksi, $sql);
-                                  $r = mysqli_fetch_array($query);
-
-                                   ?>
+                      $nip = $_SESSION['nip'];
+                      include '../../koneksi.php';
+                      $sql = "SELECT * FROM tb_pegawai WHERE nip = '$nip'";
+                      $query = mysqli_query($koneksi, $sql);
+                      $r = mysqli_fetch_array($query);
+                    ?>
                     <div class="form-group">
                       <label >Nomor Induk Pegawai (NIP)</label>
                       <input type="text" class="form-control" readonly="" required="" placeholder="Nomor Induk Pegawai (NIP)" name="nip" value="<?php echo $r['nip'];?>">
                     </div>
                     <div class="form-group">
                       <label >Nama Lengkap</label>
-                      <input type="text" class="form-control" required="" placeholder="Nama Lengkap" name="nama" value="<?php echo $r['nama'];?>">
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Nama Lengkap" name="nama" value="<?php echo $r['nama'];?>">
                     </div>
                     <div class="form-group">
                       <label >Tempat Tanggal Lahir</label>
-                      <input type="text" class="form-control" required="" placeholder="Tempat Tanggal Lahir" name="ttl" value="<?php echo $r['ttl'];?>">
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Tempat Tanggal Lahir" name="ttl" value="<?php echo $r['ttl'];?>">
                     </div>
                     <div class="form-group">
                       <label for="exampleSelectGender" >Jenis Kelamin</label>
-                        <select class="form-control" id="exampleSelectGender" required="" name="jenis_kelamin" >
-                          <option><?php echo $r['jenis_kelamin'];?></option>
-                          <option>Perempuan</option>
-                          <option>Laki-Laki</option>
-                        </select>
-                      </div>
+                      <label >Tempat Tanggal Lahir</label>
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Tempat Tanggal Lahir" name="ttl" value="<?php echo $r['jenis_kelamin'];?>">
+                    </div>
                     <div class="form-group">
                       <label >Alamat</label>
-                      <input type="text" class="form-control" required="" placeholder="Alamat" name="alamat" value="<?php echo $r['alamat'];?>">
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Alamat" name="alamat" value="<?php echo $r['alamat'];?>">
                     </div>
                     <div class="form-group">
                       <label >Agama</label>
-                      <input type="text" class="form-control" required="" placeholder="Agama" name="agama" value="<?php echo $r['agama'];?>">
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Agama" name="agama" value="<?php echo $r['agama'];?>">
                     </div>
                     <div class="form-group">
                       <label >Pendidikan Terakhir</label>
-                      <input type="text" class="form-control" required="" placeholder="Pendidikan Terakhir" name="pend_terakhir" value="<?php echo $r['pend_terakhir'];?>"> 
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Pendidikan Terakhir" name="pend_terakhir" value="<?php echo $r['pend_terakhir'];?>"> 
                     </div>
                     <div class="form-group">
-                      <label for="exampleSelectGender">Jabatan</label>
-                        <select class="form-control" id="exampleSelectGender" required="" name="jabatan">
-                          <option><?php echo $r['jabatan'];?></option>
-                          <?php 
-                            include '../../koneksi.php';
-                            $sql = "SELECT * FROM tb_jabatan";
-                            $hasil = mysqli_query($koneksi, $sql);
-                            $no = 0;
-                            while ($data = mysqli_fetch_array($hasil)) {
-                            $no++;             
-                          ?>
-                          <option value="<?php echo $data['jabatan'];?>"><?php echo $data['jabatan'];?></option>
-                          <?php } ?>
-                        </select>
-                      </div>
+                      <label>Jabatan</label>
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Tanggal Masuk" name="tanggal_masuk" value="<?php echo $r['jabatan'];?>">
+                    </div>
                     <div class="form-group">
                       <label >No Telepon</label>
-                      <input type="text" class="form-control" required="" placeholder="No. Telepon" name="no_telepon" value="<?php echo $r['no_telepon'];?>">
+                      <input type="text" class="form-control" required="" readonly="" placeholder="No. Telepon" name="no_telepon" value="<?php echo $r['no_telepon'];?>">
                     </div>
                     <div class="form-group">
                       <label >Password</label>
-                      <input type="text" class="form-control" required="" placeholder="Password" name="password" value="<?php echo $r['password'];?>">
+                      <input type="text" class="form-control" required="" readonly="" placeholder="Password" name="password" value="<?php echo $r['password'];?>">
                     </div>
                     <div class="form-group">
                       <label>Foto </label>
-                      <?php 
-                        if ($r['foto']!=''){
-                          echo "<img src=\"../../../pages/forms/images/$r[foto]\" height=150 />";  
-                        }
-                        else{
-                          echo "tidak ada gambar";
-                        }
-                      ?>
-                      <div class="form-group col-xs-12">
-                        <input type="checkbox" name="ubahfoto" value="true"> Ceklis jika ingin mengubah foto !
-                        <br>
-                        <input type="file" name="inpfoto">
-                      </div>
+                      <img src="../../../pages/forms/images/<?php echo $r['foto'];?>" style="width: 128px;height: 128px;">
                     </div>
-                    <button type="submit" name="edit" class="btn btn-primary mr-2">Submit</button>
-                    <a type="reset" name="" value="Batal" class="btn btn-light" href="../../dashboard.php">Cancel</a>
+                    <a class="btn btn-primary mr-2" href="edit.php">EDIT</a>
                   </form>
                 </div>
               </div>

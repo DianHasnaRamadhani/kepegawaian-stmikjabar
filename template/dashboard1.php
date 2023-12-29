@@ -1,19 +1,17 @@
 <?php 
+error_reporting(0);
+
+ ?>
+<?php 
     session_start();
     require_once("koneksi.php");
-    if (!isset($_SESSION['username'])) {
-        header("location: index.php");
-    }else {
-        $username = $_SESSION['username'];  
-    }
-
  ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>STMIK JABAR</title>
   <!-- plugins:css -->
@@ -29,10 +27,10 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="images/STMIK_JABAR-removebg-preview.jpeg" />
+  <link rel="shortcut icon" href="images/STMIK_JABAR-removebg-preview.jpeg"/>
 </head>
 <body>
-   <div class="container-scroller">
+  <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -43,7 +41,75 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
         </button>
+        <!-- <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+            </div>
+          </li>
+        </ul> -->
         <ul class="navbar-nav navbar-nav-right">
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="icon-bell mx-0"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="ti-info-alt mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Just now
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="ti-settings mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">Settings</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    Private message
+                  </p>
+                </div>
+              </a>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="ti-user mx-0"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                  <p class="font-weight-light small-text mb-0 text-muted">
+                    2 days ago
+                  </p>
+                </div>
+              </a>
+            </div>
+          </li> -->
+          <?php
+                                  $nip = $_SESSION['nip'];
+                                  include '../../koneksi.php';
+                                  $sql = "SELECT * FROM tb_pegawai WHERE nip = '$nip'";
+                                  $query = mysqli_query($koneksi, $sql);
+                                  $r = mysqli_fetch_array($query);
+
+                                   ?>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="images/STMIK_JABAR-removebg-preview.jpeg" alt="profile"/>
@@ -55,13 +121,19 @@
               </a>
             </div>
           </li>
+          <!-- <li class="nav-item nav-settings d-none d-lg-flex">
+            <a class="nav-link" href="#">
+              <i class="icon-ellipsis"></i>
+            </a>
+          </li> -->
         </ul>
+        <!-- <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button> -->
       </div>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial -->
-      <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas navbar-primary bg-primary" id="sidebar">
         <ul class="nav ">
           <li class="nav-item">
@@ -84,12 +156,18 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/tables/dataabsen.php">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="icon-columns menu-icon text-white"></i>
-              <span class="menu-title text-white">Kehadiran Pegawai</span>
+              <span class="menu-title text-white">Transaksi</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/tables/dataabsen.php">Data Absen</a></li>
+              </ul>
+            </div>
           </li>
-          <li class="nav-item">
+ <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
               <i class="icon-bar-graph menu-icon text-white"></i>
               <span class="menu-title text-white">Laporan</span>
@@ -97,7 +175,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/laporan/laporandataabsen.php">Laporan Kehadiran</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/laporan/laporandataabsen.php">Laporan Absen</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/laporan/laporandatapegawai.php">Laporan Pegawai</a></li>
               </ul>
             </div>
@@ -135,7 +213,7 @@
                       </div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $jumlah_pegawai; ?></div>
                     </div>
-                    <div class="col-auto">
+ <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
                   </div>
@@ -144,32 +222,25 @@
             </div>
             <!-- Earnings (Monthly) Card Example -->
             <?php
-                          include 'koneksi.php';
-                          date_default_timezone_set('Asia/Jakarta');
-                          // Mendapatkan tanggal hari ini dalam format Y-m-d
-                          $tanggal_hari_ini = date("Y-m-d");
-
-                          // Mengambil data absen masuk untuk hari ini
-                          $absen_masuk_hari_ini = mysqli_query($koneksi, "SELECT * FROM tb_absen WHERE DATE(masuk) = '$tanggal_hari_ini'");
-
-                          // Menghitung jumlah data absen masuk untuk hari ini
-                          $jumlah_absen_masuk_hari_ini = mysqli_num_rows($absen_masuk_hari_ini);
-                          ?>
+              include 'koneksi.php';
+               
+              // mengambil data barang
+              $jabatan = mysqli_query($koneksi,"SELECT * FROM tb_jabatan");
+               
+              // menghitung data barang
+              $jumlah_jabatan = mysqli_num_rows($jabatan);
+              ?>
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Presensi Masuk
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $jumlah_absen_masuk_hari_ini; ?></div>
-                                                </div>
-                                            </div>
-                                          <div class="col-auto">
-                                              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                          </div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Jabatan</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $jumlah_jabatan; ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -179,125 +250,40 @@
                         <!-- Earnings (Monthly) Card Example -->
                         <?php
                           include 'koneksi.php';
-                          date_default_timezone_set('Asia/Jakarta');
-                          // Mendapatkan tanggal hari ini dalam format Y-m-d
-                          $tanggal_hari_ini = date("Y-m-d");
-
-                          // Mengambil data absen masuk untuk hari ini
-                          $absen_masuk_hari_ini = mysqli_query($koneksi, "SELECT * FROM tb_absen WHERE DATE(pulang) = '$tanggal_hari_ini'");
-
-                          // Menghitung jumlah data absen masuk untuk hari ini
-                          $jumlah_absen_masuk_hari_ini = mysqli_num_rows($absen_masuk_hari_ini);
+                           
+                          // mengambil data barang
+                          $absen = mysqli_query($koneksi,"SELECT * FROM tb_absen");
+                           
+                          // menghitung data barang
+                          $jumlah_absen = mysqli_num_rows($absen);
                           ?>
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Presensi Pulang
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Absen
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $jumlah_absen_masuk_hari_ini; ?></div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $jumlah_absen; ?></div>
                                                 </div>
-                                            </div>
-                                          <div class="col-auto">
-                                              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                          </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-            </div>
-            <?php
-              // Koneksi ke database
-              include 'koneksi.php';
-
-              // Ambil total pegawai
-              date_default_timezone_set('Asia/Jakarta');
-              $queryTotalPegawai = "SELECT COUNT(*) as total FROM tb_pegawai";
-              $resultTotalPegawai = mysqli_query($koneksi, $queryTotalPegawai);
-              $rowTotalPegawai = mysqli_fetch_assoc($resultTotalPegawai);
-              $totalPegawai = $rowTotalPegawai['total'];
-
-              // Ambil data pegawai yang sudah absen hari ini
-              $tanggalHariIni = date("Y-m-d");
-              $queryDataAbsen = "SELECT * FROM tb_absen WHERE DATE(masuk) = '$tanggalHariIni'";
-              $resultDataAbsen = mysqli_query($koneksi, $queryDataAbsen);
-
-              // Hitung jumlah pegawai yang sudah absen hari ini
-              $totalAbsenHariIni = mysqli_num_rows($resultDataAbsen);
-            ?>
-            <div class="row">
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Data Kehadiran Hari Ini</p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>NIP</th>
-                          <th>Nama</th>
-                          <th>Masuk</th>
-                          <th>Pulang</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                            <?php 
-                            date_default_timezone_set('Asia/Jakarta');
-                            while ($row = mysqli_fetch_assoc($resultDataAbsen)) : ?>
-                                <tr>
-                                    <td><?php echo $row['nip']; ?></td>
-                                    <td><?php echo $row['nama']; ?></td>
-                                    <td><?php echo $row['masuk']; ?></td>
-                                    <td><?php echo $row['pulang']; ?></td>
-                                    <td><?php echo $row['status']; ?></td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Diagram Kehadiran Hari Ini</p>
-                  <canvas id="pieChart" width="300" height="300"></canvas>
-                </div>
-              </div>
-            </div>
+                      </div>
             </div>
         </div>
         <!-- content-wrapper ends -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var ctx = document.getElementById('pieChart').getContext('2d');
-        var data = {
-            labels: ['Pegawai', 'Hadir'],
-            datasets: [{
-                data: [<?php echo $totalPegawai - $totalAbsenHariIni; ?>, <?php echo $totalAbsenHariIni; ?>],
-                backgroundColor: ['#808080', '#2554C7'],
-            }]
-        };
-        var options = {
-            responsive: false,
-            maintainAspectRatio: false,
-        };
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: data,
-            options: options
-        });
-    </script>
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. STMIK JABAR</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.</span>
           </div>
         </footer>
         <!-- partial -->

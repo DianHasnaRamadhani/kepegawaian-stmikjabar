@@ -61,19 +61,11 @@ $totalAbsenHariIni = mysqli_num_rows($resultDataAbsen);
 </head>
 <body>
     <div class="container">
+    <h2 class="text-center">Presensi Pegawai</h2>
         <div class="row">
-            <div class="col-6">
-                <!-- Awal Chart -->
-                <div id="chartContainer">
-                    <h2 class="mb-4">Diagram Lingkaran Absensi Pegawai</h2>
-                    <canvas id="pieChart" width="300" height="300"></canvas>
-                </div>
-                <!-- Akhir Chart -->
-            </div>
-            <div class="col-6">
+            <div class="col-12">
                 <!-- Awal Table -->
                 <div id="tableContainer">
-                    <h2>Data Pegawai yang Sudah Absen Hari Ini</h2>
                     <table class="table">
                         <thead>
                             <tr>
@@ -103,17 +95,17 @@ $totalAbsenHariIni = mysqli_num_rows($resultDataAbsen);
             <div class="col-12 mt-5">
                 <!-- Awal form -->
                 <div id="absensiForm" class="mt-6">
-                    <h2>Absen Pegawai</h2>
                     <form action="proses_absen.php" method="post">
                         <div class="form-group">
                             <label for="password">Masukan Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Absen</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
+                <p class="text-right">Kembali ke login Admin <a href="../index.php">disini!</a>.</p>
                 <!-- Akhir Form -->
             </div>
         </div>
@@ -123,10 +115,10 @@ $totalAbsenHariIni = mysqli_num_rows($resultDataAbsen);
     <script>
         var ctx = document.getElementById('pieChart').getContext('2d');
         var data = {
-            labels: ['Pegawai', 'Hadir'],
+            labels: ['Absen', 'Hadir'],
             datasets: [{
                 data: [<?php echo $totalPegawai - $totalAbsenHariIni; ?>, <?php echo $totalAbsenHariIni; ?>],
-                backgroundColor: ['#36A2EB', '#FF6384'],
+                backgroundColor: ['#808080', '#2554C7'],
             }]
         };
         var options = {

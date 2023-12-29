@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "<script>window.location.href = \"absen.php\" </script>";
             } else {
                $queryAbsenPulang = "INSERT INTO tb_absen (nip, nama, password, pulang, status) VALUES ('$nip', '$nama', '$password', '$waktu', 'Terlambat')";
-               echo "<script>window.location.href = \"absen.php\" </script>";
+                echo "<script>window.location.href = \"absen.php\" </script>";
             }
         } else {
             $pesan = "Belum saatnya absen!";

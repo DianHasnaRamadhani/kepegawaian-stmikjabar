@@ -1,14 +1,20 @@
 <?php 
-require_once("../../koneksi.php");
-error_reporting(0);
-session_start();
+    session_start();
+    require_once("../../koneksi.php");
+    if (!isset($_SESSION['username'])) {
+        header("location: ../../index.php");
+    }else {
+        $username = $_SESSION['username'];  
+    }
+
  ?>
-<?php 
-  include '../../koneksi.php';
-  $id = $_GET['id_pegawai'];
-  $data = mysqli_query($koneksi, "SELECT * FROM tb_pegawai WHERE id_pegawai = '$id'");
-    while ($d = mysqli_fetch_array($data)) {
- ?>
+ <?php 
+                    include '../../koneksi.php';
+                    $id = $_GET['nip'];
+                    $sql =  "SELECT * FROM tb_pegawai WHERE nip = '$id'";
+                    $data = mysqli_query($koneksi, $sql);
+                    $d = mysqli_fetch_array($data);
+                   ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,7 +100,7 @@ session_start();
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Absen</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Kehadiran</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../laporan/laporandatapegawai.php">Laporan Pegawai</a></li>
               </ul>
             </div>
@@ -108,7 +114,7 @@ session_start();
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Tambah Data</h4>
+                  <h4 class="card-title">Edit Data</h4>
                   <p class="card-description">
                     Form Data Pegawai
                   </p>
@@ -192,7 +198,7 @@ session_start();
                       </div>
                     </div>
                     <button type="submit" name="edit" class="btn btn-primary mr-2">Submit</button>
-                    <button type="reset" name="" value="Batal" class="btn btn-light">Cancel</button>
+                    <a type="reset" href="datapegawai.php" name="" value="Batal" class="btn btn-light">Cancel</a>
                   </form>
                 </div>
               </div>
@@ -235,4 +241,3 @@ session_start();
 </body>
 
 </html>
-<?php } ?>

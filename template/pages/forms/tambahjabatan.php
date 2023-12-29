@@ -1,7 +1,8 @@
 <?php 
     session_start();
+    require_once("../../koneksi.php");
     if (!isset($_SESSION['username'])) {
-        header("location: index.php");
+        header("location: ../../index.php");
     }else {
         $username = $_SESSION['username'];  
     }
@@ -92,7 +93,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Absen</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Kehadiran</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../laporan/laporandatapegawai.php">Laporan Pegawai</a></li>
               </ul>
             </div>
@@ -116,7 +117,7 @@
                       <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="jabatan">
                     </div>
                     <button type="submit" name="simpan" class="btn btn-primary mr-2">Submit</button>
-                    <button class="btn btn-light">Cancel</button>
+                    <a type="reset" href="../tables/datajabatan.php" name="" value="Batal" class="btn btn-light">Cancel</a>
                   </form>
                 </div>
               </div>
@@ -127,7 +128,7 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021. STMIK JABAR</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. STMIK JABAR</span>
           </div>
         </footer>
         <!-- partial -->

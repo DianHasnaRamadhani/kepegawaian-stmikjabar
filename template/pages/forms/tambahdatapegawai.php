@@ -1,7 +1,8 @@
 <?php 
     session_start();
+    require_once("../../koneksi.php");
     if (!isset($_SESSION['username'])) {
-        header("location: index.php");
+        header("location: ../../index.php");
     }else {
         $username = $_SESSION['username'];  
     }
@@ -93,7 +94,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Absen</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Kehadiran</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../laporan/laporandatapegawai.php">Laporan Pegawai</a></li>
               </ul>
             </div>
@@ -114,7 +115,7 @@
                   <form class="forms-sample" action="simpan_data_karyawan.php" enctype="multipart/form-data" method="POST">
                     <div class="form-group">
                       <label >Nomor Induk Pegawai (NIP)</label>
-                      <input type="text" class="form-control" required="" placeholder="Nomor Induk Pegawai (NIP)" name="nip">
+                      <input type="text" class="form-control" required="" placeholder="Nomor Induk Pegawai (NIP)" name="nip" maxlength="9">
                     </div>
                     <div class="form-group">
                       <label >Nama Lengkap</label>
@@ -172,7 +173,7 @@
                     </div>
                     <div class="form-group">
                       <label >Password</label>
-                      <input type="text" class="form-control" required="" placeholder="Password" name="password">
+                      <input type="text" class="form-control" required="" placeholder="Password" name="password" maxlength="8">
                     </div>
                     <div class="form-group">
                       <label>Foto </label>
@@ -181,7 +182,7 @@
                       </div>
                     </div>
                     <button type="submit" name="simpan" class="btn btn-primary mr-2">Submit</button>
-                    <button type="reset" name="" value="Batal" class="btn btn-light">Cancel</button>
+                    <a type="reset" href="../tables/datapegawai.php" name="" value="Batal" class="btn btn-light">Cancel</a>
                   </form>
                 </div>
               </div>

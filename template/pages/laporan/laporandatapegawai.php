@@ -1,3 +1,13 @@
+<?php 
+    session_start();
+    require_once("../../koneksi.php");
+    if (!isset($_SESSION['username'])) {
+        header("location: ../../index.php");
+    }else {
+        $username = $_SESSION['username'];  
+    }
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +103,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="laporandataabsen.php">Laporan Absen</a></li>
+                <li class="nav-item"> <a class="nav-link" href="laporandataabsen.php">Laporan Kehadiran</a></li>
                 <li class="nav-item"> <a class="nav-link" href="laporandatapegawai.php">Laporan Pegawai</a></li>
               </ul>
             </div>
@@ -108,9 +118,10 @@
               <div class="card">
                 <div class="card-body">
                   <div class="container">
-                    <h3>Unduh Laporan</h3>
+                    <h3>Laporan Data Pegawai</h3>
                     <form>
-                      <a href="unduhpegawai.php" class="btn btn-primary">Unduh Data Pegawai</a>
+                      <br><br>
+                      <a href="unduhpegawai.php" class="btn btn-primary">Unduh</a>
                     </form>
                   </div>
                 </div>
@@ -122,8 +133,7 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. STMIK JABAR</span>
           </div>
         </footer>
         <!-- partial -->

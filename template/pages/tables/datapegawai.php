@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    require_once("../../koneksi.php");
     if (!isset($_SESSION['username'])) {
         header("location: ../../index.php");
     }else {
@@ -94,7 +95,7 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Absen</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../laporan/laporandataabsen.php">Laporan Kehadiran</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../laporan/laporandatapegawai.php">Laporan Pegawai</a></li>
               </ul>
             </div>
@@ -106,7 +107,7 @@
         <div class="content-wrapper">
           <?php 
               include '../../koneksi.php';
-              $query1 = "SELECT * FROM tb_pegawai ORDER BY id_pegawai";
+              $query1 = "SELECT * FROM tb_pegawai ORDER BY nip";
 
               $pola = 'asc';
               $polabaru = 'asc';
@@ -115,7 +116,7 @@
                 $orderby = $_GET['orderby'];
                 $pola = $_GET['pola'];
 
-                $query1 = "SELECT * FROM tb_karyawan ORDER BY $orderby $pola";
+                $query1 = "SELECT * FROM tb_pegawai ORDER BY $orderby $pola";
                 mysqli_query($koneksi, $query1);
                 if ($pola=='asc') {
                   $polabaru = 'desc';
@@ -196,7 +197,7 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021. STMIK JABAR</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. STMIK JABAR</span>
           </div>
         </footer>
         <!-- partial -->
